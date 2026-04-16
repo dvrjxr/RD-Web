@@ -3,156 +3,454 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rank Dangal - The Ultimate Education App</title>
+  <title>Rank Dangal - Bihar Board 10th Exam App</title>
   
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- FontAwesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+    
+    * { box-sizing: border-box; }
     
     body { 
       font-family: 'Nunito', sans-serif; 
-      background-color: #f7f9fa; /* Light fresh educational background */
-      color: #1f2937; 
+      background-color: #0a0f1e;
+      color: #ffffff; 
       -webkit-tap-highlight-color: transparent;
+      overflow-x: hidden;
     }
-    
-    /* Duolingo Style 3D Button - Green */
+
+    /* ── HERO GRADIENT ── */
+    .hero-bg {
+      background: radial-gradient(ellipse at 50% 0%, rgba(88,204,2,0.18) 0%, transparent 65%),
+                  radial-gradient(ellipse at 90% 50%, rgba(59,130,246,0.12) 0%, transparent 55%),
+                  #0a0f1e;
+    }
+
+    /* ── ANIMATED GLOW RING ── */
+    .glow-ring {
+      box-shadow: 0 0 0 0 rgba(88,204,2,0.4);
+      animation: pulse-ring 2.5s infinite;
+    }
+    @keyframes pulse-ring {
+      0%   { box-shadow: 0 0 0 0 rgba(88,204,2,0.5); }
+      70%  { box-shadow: 0 0 0 18px rgba(88,204,2,0); }
+      100% { box-shadow: 0 0 0 0 rgba(88,204,2,0); }
+    }
+
+    /* ── 3D CTA BUTTON ── */
     .btn-3d {
-      background: linear-gradient(180deg, #89e219 0%, #58cc02 100%);
-      border: none;
-      border-bottom: 5px solid #46a302;
-      box-shadow: 0 4px 15px rgba(88, 204, 2, 0.25);
+      background: linear-gradient(180deg, #9fef2b 0%, #58cc02 55%, #46a302 100%);
+      border-bottom: 5px solid #2f7a00;
       transition: all 0.1s ease;
-      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(88,204,2,0.35);
     }
     .btn-3d:active {
-      transform: translateY(5px);
-      border-bottom-width: 0px;
-      box-shadow: 0 0 0 rgba(88, 204, 2, 0);
+      transform: translateY(4px);
+      border-bottom-width: 1px;
+      box-shadow: 0 2px 10px rgba(88,204,2,0.2);
     }
 
-    /* Gradient fade behind the sticky button */
-    .sticky-btn-container {
-      background: linear-gradient(to top, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0));
+    /* ── GLASS CARD ── */
+    .glass {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      backdrop-filter: blur(12px);
     }
+
+    /* ── FEATURE CARD HOVER ── */
+    .feat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .feat-card:active {
+      transform: translateY(-3px);
+      border-color: rgba(88,204,2,0.4);
+      box-shadow: 0 8px 30px rgba(88,204,2,0.1);
+    }
+
+    /* ── STAT NUMBER ── */
+    .stat-num {
+      background: linear-gradient(135deg, #58cc02, #89e219);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── BADGE PILL ── */
+    .badge-pill {
+      background: rgba(88,204,2,0.15);
+      border: 1px solid rgba(88,204,2,0.35);
+      color: #89e219;
+    }
+
+    /* ── STICKY GRADIENT ── */
+    .sticky-grad {
+      background: linear-gradient(to top, #0a0f1e 55%, transparent);
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-track {
+      display: flex;
+      gap: 1.5rem;
+      animation: marquee 18s linear infinite;
+      white-space: nowrap;
+    }
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── LOCATION BANNER ── */
+    .location-banner {
+      background: linear-gradient(90deg, rgba(234,179,8,0.15), rgba(234,179,8,0.05));
+      border: 1px solid rgba(234,179,8,0.3);
+    }
+
+    /* ── STEP CONNECTOR ── */
+    .step-line {
+      width: 2px;
+      background: linear-gradient(to bottom, #58cc02, transparent);
+    }
+
+    /* ── SCROLLBAR HIDE ── */
+    ::-webkit-scrollbar { display: none; }
+
+    /* ── SHIMMER ON LOGO ── */
+    @keyframes shimmer {
+      0%   { opacity: 1; }
+      50%  { opacity: 0.85; }
+      100% { opacity: 1; }
+    }
+    .logo-shimmer { animation: shimmer 3s ease-in-out infinite; }
   </style>
 </head>
-<body class="antialiased pb-36 overflow-x-hidden">
+<body class="antialiased pb-40">
 
-  <!-- Desktop Note -->
-  <div class="hidden md:flex bg-blue-500 text-white p-3 justify-center text-sm font-bold shadow-md">
-    <i class="fa-solid fa-graduation-cap mr-2 mt-1"></i> Rank Dangal is beautifully designed for Mobile Phones. Download the APK on your phone!
+  <!-- ═══════════════════════════════════════════
+       DESKTOP NOTICE BAR
+  ════════════════════════════════════════════ -->
+  <div class="hidden md:flex bg-green-600 text-white py-2.5 justify-center text-sm font-bold tracking-wide">
+    <i class="fa-solid fa-mobile-screen mr-2 mt-0.5"></i>
+    Rank Dangal is optimised for Mobile — Open on your phone for best experience.
   </div>
 
-  <div class="max-w-md mx-auto px-5 pt-8">
-    
-    <!-- Original Logo & Header -->
-    <div class="flex items-center gap-4 mb-8">
-      
-      <!-- Rank Dangal EXACT App Logo -->
-      <div 
-        class="relative flex items-center justify-center rounded-[22%] overflow-hidden shadow-lg border-b-[3px] border-[#3d8c01]"
-        style="width: 58px; height: 58px; background: linear-gradient(135deg, #89e219 0%, #58cc02 50%, #46a302 100%); box-shadow: 0 3px 0 #3d8c01, 0 4px 8px rgba(88, 204, 2, 0.3);"
-      >
-        <svg class="w-full h-full scale-[0.8]" viewBox="0 0 100 100">
-          <rect x="33" y="13" width="34" height="6" rx="3" fill="#ffffff"/>
-          <path d="M27 38C27 27 36 22 50 22C64 22 73 27 73 38V49C73 60 62 67 50 67C38 67 27 60 27 49V38Z" fill="#ffffff"/>
-          <path d="M27 40C17 42 17 55 27 58" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
-          <path d="M73 40C83 42 83 55 73 58" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
-          <path d="M43 33H50C57.5 33 62.5 38 62.5 45C62.5 52 57.5 57 50 57H43V33Z" fill="#58cc02"/>
-          <rect x="43" y="33" width="5" height="24" rx="2.5" fill="#58cc02"/>
-          <path d="M50 38C54.5 38 57.8 41 57.8 45C57.8 49 54.5 52 50 52H48V38H50Z" fill="#ffffff"/>
-          <rect x="43" y="67" width="14" height="8.5" rx="2.5" fill="#ffffff"/>
-          <rect x="33" y="75.5" width="34" height="8" rx="4" fill="#ffffff"/>
-        </svg>
-      </div>
-      
-      <div>
-        <h1 class="text-3xl font-black tracking-tight text-slate-800">Rank Dangal</h1>
-        <p class="text-xs text-blue-600 font-extrabold uppercase tracking-widest mt-0.5">Study Daily. Rank Higher.</p>
-      </div>
+  <!-- ═══════════════════════════════════════════
+       LOCATION AVAILABILITY BANNER
+  ════════════════════════════════════════════ -->
+  <div class="location-banner mx-4 mt-4 rounded-xl px-4 py-2.5 flex items-center gap-3 max-w-md md:mx-auto">
+    <div class="w-7 h-7 rounded-full bg-yellow-400/20 flex items-center justify-center flex-shrink-0">
+      <i class="fa-solid fa-location-dot text-yellow-400 text-sm"></i>
     </div>
-
-    <!-- Hero Content Focus on Education -->
-    <h2 class="text-4xl font-black leading-tight mb-4 text-slate-900">The Ultimate App for <span class="text-blue-500">Bihar Board 10th.</span></h2>
-    <p class="text-slate-600 font-bold mb-8 text-[17px] leading-relaxed">Prepare for your Matric Exams with daily MCQs strictly based on the BSEB pattern. Solve PYQs, compete, score high, and win scholarships!</p>
-
-    <!-- App Preview Mockup (Clean Light UI) -->
-    <div class="relative w-full rounded-[2rem] border-[4px] border-slate-200 bg-white p-2 mb-10 shadow-xl">
-      <div class="bg-blue-50 rounded-[1.5rem] p-6 h-64 flex flex-col items-center justify-center border-2 border-blue-100 relative overflow-hidden">
-        <div class="w-16 h-16 bg-blue-100 text-blue-500 rounded-full flex items-center justify-center text-4xl mb-4 shadow-[0_0_15px_rgba(59,130,246,0.3)]">
-          <i class="fa-solid fa-graduation-cap relative -top-0.5"></i>
-        </div>
-        <h3 class="text-blue-900 font-black text-2xl z-10 text-center uppercase tracking-tight">Sunday Dangal Test</h3>
-        <p class="text-blue-700 font-bold text-sm z-10 mt-2 bg-white px-4 py-1.5 rounded-full border border-blue-200 shadow-sm">
-          BSEB Matric Level Test
-        </p>
-      </div>
-    </div>
-
-    <!-- Educational Features section -->
-    <div class="space-y-4 mb-10">
-      
-      <div class="bg-white p-5 rounded-[1.5rem] border-2 border-slate-200 border-b-[5px] flex items-center gap-5 shadow-sm">
-        <div class="w-14 h-14 bg-green-50 text-green-500 rounded-xl flex items-center justify-center text-2xl border-2 border-green-100 flex-shrink-0">
-          <i class="fa-solid fa-award"></i>
-        </div>
-        <div>
-          <h4 class="font-black text-lg text-slate-800">Merit Scholarships</h4>
-          <p class="text-sm text-slate-500 font-bold leading-tight mt-1">Excellent students get rewarded with scholarships to support their studies.</p>
-        </div>
-      </div>
-
-      <div class="bg-white p-5 rounded-[1.5rem] border-2 border-slate-200 border-b-[5px] flex items-center gap-5 shadow-sm">
-        <div class="w-14 h-14 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center text-2xl border-2 border-blue-100 flex-shrink-0">
-          <i class="fa-solid fa-file-pdf"></i>
-        </div>
-        <div>
-          <h4 class="font-black text-lg text-slate-800">Bihar Board PYQs</h4>
-          <p class="text-sm text-slate-500 font-bold leading-tight mt-1">Access years of 10th board Previous Year Question papers in-app.</p>
-        </div>
-      </div>
-
-      <div class="bg-white p-5 rounded-[1.5rem] border-2 border-slate-200 border-b-[5px] flex items-center gap-5 shadow-sm">
-        <div class="w-14 h-14 bg-yellow-50 text-yellow-500 rounded-xl flex items-center justify-center text-2xl border-2 border-yellow-100 flex-shrink-0">
-          <i class="fa-solid fa-ranking-star"></i>
-        </div>
-        <div>
-          <h4 class="font-black text-lg text-slate-800">Daily Topper MCQs</h4>
-          <p class="text-sm text-slate-500 font-bold leading-tight mt-1">Practice daily with objective questions matching the exact Bihar Board pattern.</p>
-        </div>
-      </div>
-
-    </div>
-    
-    <div class="text-center text-slate-400 font-bold text-[11px] mb-10 pb-4">
-      &copy; 2026 Rank Dangal Education. 100% Safe & Free from Ads.
+    <div>
+      <p class="text-yellow-300 font-black text-[11px] uppercase tracking-widest">Limited Launch</p>
+      <p class="text-yellow-100 font-bold text-xs leading-tight">Currently available in <span class="text-yellow-300 font-black">Buxar District</span> only. Coming to Bihar soon!</p>
     </div>
   </div>
 
-  <!-- STICKY DOWNLOAD BUTTON -->
-  <div class="fixed bottom-0 left-0 w-full sticky-btn-container pt-12 pb-6 px-5 z-50">
+  <!-- ═══════════════════════════════════════════
+       MAIN CONTAINER
+  ════════════════════════════════════════════ -->
+  <div class="max-w-md mx-auto px-5">
+
+    <!-- ── NAVBAR ── -->
+    <nav class="flex items-center justify-between pt-6 pb-2 mb-2">
+      <div class="flex items-center gap-3">
+        <!-- Logo -->
+        <div 
+          class="logo-shimmer relative flex items-center justify-center rounded-[22%] overflow-hidden shadow-lg glow-ring"
+          style="width:46px;height:46px;background:linear-gradient(135deg,#89e219 0%,#58cc02 55%,#46a302 100%);border-bottom:3px solid #2f7a00;"
+        >
+          <svg class="w-full h-full scale-[0.82]" viewBox="0 0 100 100">
+            <rect x="33" y="13" width="34" height="6" rx="3" fill="#fff"/>
+            <path d="M27 38C27 27 36 22 50 22C64 22 73 27 73 38V49C73 60 62 67 50 67C38 67 27 60 27 49V38Z" fill="#fff"/>
+            <path d="M27 40C17 42 17 55 27 58" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+            <path d="M73 40C83 42 83 55 73 58" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+            <path d="M43 33H50C57.5 33 62.5 38 62.5 45C62.5 52 57.5 57 50 57H43V33Z" fill="#58cc02"/>
+            <rect x="43" y="33" width="5" height="24" rx="2.5" fill="#58cc02"/>
+            <path d="M50 38C54.5 38 57.8 41 57.8 45C57.8 49 54.5 52 50 52H48V38H50Z" fill="#fff"/>
+            <rect x="43" y="67" width="14" height="8.5" rx="2.5" fill="#fff"/>
+            <rect x="33" y="75.5" width="34" height="8" rx="4" fill="#fff"/>
+          </svg>
+        </div>
+        <div>
+          <p class="font-black text-white text-lg leading-none tracking-tight">Rank Dangal</p>
+          <p class="text-[10px] font-extrabold text-green-400 uppercase tracking-widest leading-none mt-0.5">Study Daily. Rank Higher.</p>
+        </div>
+      </div>
+      <!-- Version Badge -->
+      <span class="badge-pill text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full">
+        v1.0 Beta
+      </span>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <section class="hero-bg rounded-3xl px-6 pt-10 pb-8 mb-6 mt-4 relative overflow-hidden">
+      <!-- Decorative orbs -->
+      <div class="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-green-500/10 blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-10 -left-10 w-32 h-32 rounded-full bg-blue-500/10 blur-3xl pointer-events-none"></div>
+
+      <!-- Top tag -->
+      <div class="inline-flex items-center gap-2 badge-pill px-3 py-1.5 rounded-full text-[11px] font-black uppercase tracking-widest mb-5">
+        <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
+        Bihar Board 10th · BSEB Pattern
+      </div>
+
+      <h1 class="text-[2.1rem] font-black leading-[1.15] text-white mb-4 tracking-tight">
+        Bihar's <span style="background:linear-gradient(90deg,#58cc02,#89e219);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Smartest</span><br>Matric Exam App.
+      </h1>
+
+      <p class="text-slate-400 font-bold text-[15px] leading-relaxed mb-7">
+        Daily MCQs · PYQ Papers · Live Rankings · Merit Scholarships — everything you need to top the Bihar Board.
+      </p>
+
+      <!-- STATS ROW -->
+      <div class="grid grid-cols-3 gap-3">
+        <div class="glass rounded-2xl p-3 text-center">
+          <p class="stat-num font-black text-2xl leading-none">500+</p>
+          <p class="text-slate-400 font-bold text-[10px] uppercase tracking-wide mt-1">Students</p>
+        </div>
+        <div class="glass rounded-2xl p-3 text-center">
+          <p class="stat-num font-black text-2xl leading-none">10K+</p>
+          <p class="text-slate-400 font-bold text-[10px] uppercase tracking-wide mt-1">Questions</p>
+        </div>
+        <div class="glass rounded-2xl p-3 text-center">
+          <p class="stat-num font-black text-2xl leading-none">100%</p>
+          <p class="text-slate-400 font-bold text-[10px] uppercase tracking-wide mt-1">Free</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TRUST MARQUEE ── -->
+    <div class="overflow-hidden mb-8 -mx-5 px-0">
+      <div class="flex gap-6 marquee-track py-1">
+        <!-- Items duplicated for seamless loop -->
+        <span class="flex items-center gap-2 text-slate-400 text-[12px] font-bold flex-shrink-0"><i class="fa-solid fa-shield-halved text-green-400"></i> 100% Safe</span>
+        <span class="flex items-center gap-2 text-slate-400 text-[12px] font-bold flex-shrink-0"><i class="fa-solid fa-ban text-green-400"></i> Zero Ads</span>
+        <span class="flex items-center gap-2 text-slate-400 text-[12px] font-bold flex-shrink-0"><i class="fa-solid fa-book-open text-green-400"></i> BSEB Syllabus</span>
+        <span class="flex items-center gap-2 text-slate-400 text-[12px] font-bold flex-shrink-0"><i class="fa-solid fa-trophy text-green-400"></i> Weekly Dangal</span>
+        <span class="flex items-center gap-2 text-slate-400 text-[12px] font-bold flex-shrink-0"><i class="fa-solid fa-graduation-cap text-green-400"></i> Rank Faster</span>
+        <!-- duplicate -->
+        <span class="flex items-center gap-2 text-slate-400 text-[12px] font-bold flex-shrink-0"><i class="fa-solid fa-shield-halved text-green-400"></i> 100% Safe</span>
+        <span class="flex items-center gap-2 text-slate-400 text-[12px] font-bold flex-shrink-0"><i class="fa-solid fa-ban text-green-400"></i> Zero Ads</span>
+        <span class="flex items-center gap-2 text-slate-400 text-[12px] font-bold flex-shrink-0"><i class="fa-solid fa-book-open text-green-400"></i> BSEB Syllabus</span>
+        <span class="flex items-center gap-2 text-slate-400 text-[12px] font-bold flex-shrink-0"><i class="fa-solid fa-ban text-green-400"></i> Zero Ads</span>
+        <span class="flex items-center gap-2 text-slate-400 text-[12px] font-bold flex-shrink-0"><i class="fa-solid fa-trophy text-green-400"></i> Weekly Dangal</span>
+        <span class="flex items-center gap-2 text-slate-400 text-[12px] font-bold flex-shrink-0"><i class="fa-solid fa-graduation-cap text-green-400"></i> Rank Faster</span>
+      </div>
+    </div>
+
+    <!-- ── FEATURES ── -->
+    <h2 class="text-xl font-black text-white mb-4 tracking-tight">Everything You Need to <span class="text-green-400">Top the Board</span></h2>
+
+    <div class="space-y-3 mb-10">
+
+      <div class="feat-card rounded-2xl p-4 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
+             style="background:rgba(88,204,2,0.15);border:1px solid rgba(88,204,2,0.25);">
+          <i class="fa-solid fa-ranking-star text-green-400"></i>
+        </div>
+        <div>
+          <h4 class="font-black text-white text-[15px]">Daily BSEB-Pattern MCQs</h4>
+          <p class="text-slate-400 font-bold text-[12px] leading-snug mt-0.5">Solve fresh questions every day matching the exact Bihar Board exam style.</p>
+        </div>
+        <i class="fa-solid fa-chevron-right text-slate-600 ml-auto flex-shrink-0 text-xs"></i>
+      </div>
+
+      <div class="feat-card rounded-2xl p-4 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
+             style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.25);">
+          <i class="fa-solid fa-file-pdf text-blue-400"></i>
+        </div>
+        <div>
+          <h4 class="font-black text-white text-[15px]">Previous Year Papers</h4>
+          <p class="text-slate-400 font-bold text-[12px] leading-snug mt-0.5">Access years of Bihar Board 10th PYQs — subject-wise, chapter-wise.</p>
+        </div>
+        <i class="fa-solid fa-chevron-right text-slate-600 ml-auto flex-shrink-0 text-xs"></i>
+      </div>
+
+      <div class="feat-card rounded-2xl p-4 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
+             style="background:rgba(234,179,8,0.15);border:1px solid rgba(234,179,8,0.25);">
+          <i class="fa-solid fa-trophy text-yellow-400"></i>
+        </div>
+        <div>
+          <h4 class="font-black text-white text-[15px]">Sunday Dangal Test</h4>
+          <p class="text-slate-400 font-bold text-[12px] leading-snug mt-0.5">Compete live every Sunday. Climb the district leaderboard and win prizes.</p>
+        </div>
+        <i class="fa-solid fa-chevron-right text-slate-600 ml-auto flex-shrink-0 text-xs"></i>
+      </div>
+
+      <div class="feat-card rounded-2xl p-4 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
+             style="background:rgba(168,85,247,0.15);border:1px solid rgba(168,85,247,0.25);">
+          <i class="fa-solid fa-award text-purple-400"></i>
+        </div>
+        <div>
+          <h4 class="font-black text-white text-[15px]">Merit Scholarships</h4>
+          <p class="text-slate-400 font-bold text-[12px] leading-snug mt-0.5">Top performers get real scholarships to fuel their education journey.</p>
+        </div>
+        <i class="fa-solid fa-chevron-right text-slate-600 ml-auto flex-shrink-0 text-xs"></i>
+      </div>
+
+      <div class="feat-card rounded-2xl p-4 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
+             style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.22);">
+          <i class="fa-solid fa-chart-line text-red-400"></i>
+        </div>
+        <div>
+          <h4 class="font-black text-white text-[15px]">Performance Analytics</h4>
+          <p class="text-slate-400 font-bold text-[12px] leading-snug mt-0.5">Track your weak subjects, accuracy rate & improvement over time.</p>
+        </div>
+        <i class="fa-solid fa-chevron-right text-slate-600 ml-auto flex-shrink-0 text-xs"></i>
+      </div>
+
+    </div>
+
+    <!-- ── HOW IT WORKS ── -->
+    <h2 class="text-xl font-black text-white mb-5 tracking-tight">Get Started in <span class="text-green-400">3 Steps</span></h2>
+
+    <div class="glass rounded-3xl p-5 mb-10 space-y-0">
+
+      <div class="flex gap-4 items-start">
+        <div class="flex flex-col items-center flex-shrink-0">
+          <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center font-black text-white text-sm shadow-lg shadow-green-500/30">1</div>
+          <div class="step-line h-12 mt-1"></div>
+        </div>
+        <div class="pt-2 pb-4">
+          <h4 class="font-black text-white text-[15px]">Download the App</h4>
+          <p class="text-slate-400 font-bold text-[12px] mt-0.5">Install the free APK on your Android phone. No registration hassle.</p>
+        </div>
+      </div>
+
+      <div class="flex gap-4 items-start">
+        <div class="flex flex-col items-center flex-shrink-0">
+          <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center font-black text-white text-sm shadow-lg shadow-green-500/30">2</div>
+          <div class="step-line h-12 mt-1"></div>
+        </div>
+        <div class="pt-2 pb-4">
+          <h4 class="font-black text-white text-[15px]">Pick Your Subject</h4>
+          <p class="text-slate-400 font-bold text-[12px] mt-0.5">Choose from Science, Maths, Social Science, Hindi & more.</p>
+        </div>
+      </div>
+
+      <div class="flex gap-4 items-start">
+        <div class="flex-shrink-0">
+          <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center font-black text-white text-sm shadow-lg shadow-green-500/30">3</div>
+        </div>
+        <div class="pt-2">
+          <h4 class="font-black text-white text-[15px]">Study, Compete & Win</h4>
+          <p class="text-slate-400 font-bold text-[12px] mt-0.5">Solve daily MCQs, join Sunday Dangal and climb the leaderboard!</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── TESTIMONIAL ── -->
+    <h2 class="text-xl font-black text-white mb-4 tracking-tight">What Toppers Say 💬</h2>
+
+    <div class="space-y-3 mb-10">
+      <div class="glass rounded-2xl p-5">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center font-black text-white text-sm">A</div>
+          <div>
+            <p class="font-black text-white text-sm">Aman Kumar</p>
+            <p class="text-slate-500 font-bold text-[11px]">Class 10, Buxar</p>
+          </div>
+          <div class="ml-auto flex gap-0.5">
+            <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+            <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+            <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+            <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+            <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+          </div>
+        </div>
+        <p class="text-slate-300 font-bold text-[13px] leading-relaxed">"Daily MCQs literally saved my board prep. I solved 200+ PYQs in 2 weeks and my confidence is through the roof!"</p>
+      </div>
+
+      <div class="glass rounded-2xl p-5">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center font-black text-white text-sm">P</div>
+          <div>
+            <p class="font-black text-white text-sm">Priya Kumari</p>
+            <p class="text-slate-500 font-bold text-[11px]">Class 10, Buxar</p>
+          </div>
+          <div class="ml-auto flex gap-0.5">
+            <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+            <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+            <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+            <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+            <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+          </div>
+        </div>
+        <p class="text-slate-300 font-bold text-[13px] leading-relaxed">"Won the Sunday Dangal scholarship! Best app for BSEB students. Zero ads, pure studying. 🎉"</p>
+      </div>
+    </div>
+
+    <!-- ── LOCATION SECTION ── -->
+    <div class="location-banner rounded-3xl p-5 mb-10">
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 rounded-xl bg-yellow-400/20 flex items-center justify-center flex-shrink-0 border border-yellow-400/30">
+          <i class="fa-solid fa-map-location-dot text-yellow-400 text-xl"></i>
+        </div>
+        <div>
+          <p class="text-yellow-300 font-black text-[12px] uppercase tracking-widest mb-1">🚀 Limited Beta Launch</p>
+          <h3 class="text-white font-black text-lg leading-snug">Only in Buxar District</h3>
+          <p class="text-slate-400 font-bold text-[12px] leading-relaxed mt-1.5">We're starting strong with Buxar. If you're from Buxar — you're early. Expansion across Bihar coming very soon!</p>
+          <div class="mt-3 inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/25 px-3 py-1.5 rounded-full">
+            <span class="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse"></span>
+            <span class="text-yellow-300 font-black text-[11px] uppercase tracking-wider">Buxar · Bihar · India</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── FOOTER ── -->
+    <div class="text-center mb-6">
+      <div class="flex items-center justify-center gap-2 mb-3">
+        <div class="h-px bg-slate-800 flex-1"></div>
+        <span class="text-slate-600 text-xs font-bold">RANK DANGAL</span>
+        <div class="h-px bg-slate-800 flex-1"></div>
+      </div>
+      <p class="text-slate-600 font-bold text-[11px]">&copy; 2026 Rank Dangal Education. Made with ❤️ for Bihar.</p>
+      <p class="text-slate-700 font-bold text-[10px] mt-1">100% Free · Zero Ads · Safe & Secure</p>
+    </div>
+
+  </div><!-- /max-w-md -->
+
+  <!-- ═══════════════════════════════════════════
+       STICKY DOWNLOAD BAR
+  ════════════════════════════════════════════ -->
+  <div class="fixed bottom-0 left-0 w-full sticky-grad pt-10 pb-5 px-5 z-50">
     <div class="max-w-md mx-auto">
-      
-      <!-- IMPORTANT: Add your Firebase Storage APK link here -->
+
       <a 
-        href="YOUR_APK_DOWNLOAD_LINK" 
-        class="btn-3d w-full block text-center py-4 rounded-[1.25rem] text-white font-black text-[19px] uppercase tracking-widest relative overflow-hidden"
+        href="https://github.com/dvrjxr/RankDangal/releases/download/v1.0/RankDangal-V1.apk" 
+        class="btn-3d w-full block text-center py-4 rounded-[1.25rem] text-white font-black text-[17px] uppercase tracking-widest relative overflow-hidden"
+        style="letter-spacing:0.08em;"
       >
-        <span class="relative z-10 flex items-center justify-center">
-          <i class="fa-brands fa-android mr-2 text-2xl relative -top-[1px]"></i> 
-          Download Official App
+        <span class="relative z-10 flex items-center justify-center gap-2.5">
+          <i class="fa-brands fa-android text-[22px]"></i>
+          Download Free App
         </span>
       </a>
-      
-      <p class="text-center text-xs text-slate-500 font-black mt-3 uppercase tracking-wider flex items-center justify-center gap-1.5">
-        <i class="fa-solid fa-shield-check text-green-500 text-sm border-white"></i> Trusted by BSEB Matric Toppers
-      </p>
+
+      <div class="flex items-center justify-center gap-4 mt-3">
+        <p class="flex items-center gap-1.5 text-[11px] text-slate-500 font-bold">
+          <i class="fa-solid fa-shield-check text-green-500"></i> 100% Safe
+        </p>
+        <span class="text-slate-700">·</span>
+        <p class="flex items-center gap-1.5 text-[11px] text-slate-500 font-bold">
+          <i class="fa-brands fa-android text-green-500"></i> Android 5.0+
+        </p>
+        <span class="text-slate-700">·</span>
+        <p class="flex items-center gap-1.5 text-[11px] text-slate-500 font-bold">
+          <i class="fa-solid fa-bolt text-green-500"></i> Instant Install
+        </p>
+      </div>
+
     </div>
   </div>
 
